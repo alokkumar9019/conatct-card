@@ -215,16 +215,38 @@ export default function VCardPage() {
                   onClick={closeModal} 
                   className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"><FiX size={20}/></button>
                 <div className="font-semibold text-sky-600 text-md mb-2 text-left">Share</div>
-                <ul className="mb-2">
-                  <li><ShareOption icon={<FaFacebook className="text-blue-600"/>} label="Facebook"
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`} /></li>
-                  <li><ShareOption icon={<FaXTwitter className="text-black"/>} label="X"
-                    href={`https://x.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`} /></li>
-                  <li><ShareOption icon={<FaWhatsapp className="text-green-600"/>} label="WhatsApp"
-                    href={`https://wa.me/?text=${encodeURIComponent(window.location.href)}`} /></li>
-                  <li><ShareOption icon={<MdEmail className="text-red-500"/>} label="Email"
-                    href={`mailto:?body=${encodeURIComponent(window.location.href)}`} /></li>
-                </ul>
+               <ul className="mb-2">
+  <li>
+    <ShareOption
+      icon={<span className="text-blue-600"><FaFacebook /></span>}
+      label="Facebook"
+      href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+    />
+  </li>
+  <li>
+    <ShareOption
+      icon={<span className="text-black"><FaXTwitter /></span>}
+      label="X"
+      href={`https://x.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`}
+    />
+  </li>
+  <li>
+    <ShareOption
+      icon={<span className="text-green-600"><FaWhatsapp /></span>}
+      label="WhatsApp"
+      href={`https://wa.me/?text=${encodeURIComponent(window.location.href)}`}
+    />
+  </li>
+  <li>
+    <ShareOption
+      icon={<span className="text-red-500"><MdEmail /></span>}
+      label="Email"
+      href={`mailto:?body=${encodeURIComponent(window.location.href)}`}
+    />
+  </li>
+</ul>
+
+
                 <div className="flex items-center mt-4">
                   <span className="text-[1.3rem] text-gray-700 mr-2"><PiCopySimpleFill /></span>
                   <input value="https://qrco.de/danpcln" readOnly
