@@ -24,3 +24,21 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+@layer utilities {
+  .bg-gradient-dynamic {
+    background: linear-gradient(135deg, #6b46c1 0%, #b794f4 25%, #63b3ed 50%, #805ad5 75%, #faf5ff 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .bg-pattern-diagonal {
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.05) 0,
+        rgba(255, 255, 255, 0.05) 10px,
+        transparent 10px,
+        transparent 20px
+      );
+  }
+}
