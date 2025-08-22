@@ -1,5 +1,6 @@
 // components/LoadingWelcome.tsx
 import React from "react";
+import Image from "next/image";
 
 export default function LoadingWelcome({ show }: { show: boolean }) {
   if (!show) return null;
@@ -8,17 +9,24 @@ export default function LoadingWelcome({ show }: { show: boolean }) {
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white">
       <div className="w-full max-w-md">
         <div className="mt-8 flex justify-center">
-          <img
-            src="/PCLnXAI.png"
-            alt="Welcome"
-            className="max-w-[150px] max-h-[150px]"
+          <div
             style={{
               animationIterationCount: "infinite",
               animationDirection: "alternate",
               animationName: "bounce",
               animationDuration: "1.5s",
+              maxWidth: 150,
+              maxHeight: 150,
             }}
-          />
+          >
+            <Image
+              src="/PCLnXAI.png"
+              alt="Welcome"
+              width={150}
+              height={150}
+              priority={true}
+            />
+          </div>
         </div>
       </div>
       <style>{`
