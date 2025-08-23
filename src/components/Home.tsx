@@ -1,15 +1,31 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import {FiMail,FiBriefcase,FiLink,FiShare2,FiDownload,FiX,FiArrowLeft,FiSave,FiPhone} from "react-icons/fi";
-import {FaLinkedin,FaGlobe,FaFacebook,FaXTwitter,FaWhatsapp,} from "react-icons/fa6";
+import {
+  FiMail,
+  FiBriefcase,
+  FiLink,
+  FiShare2,
+  FiDownload,
+  FiX,
+  FiArrowLeft,
+  FiSave,
+  FiPhone,
+} from "react-icons/fi";
+import {
+  FaLinkedin,
+  FaGlobe,
+  FaFacebook,
+  FaXTwitter,
+  FaWhatsapp,
+} from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { PiCopySimpleFill } from "react-icons/pi";
 
 const contactInfo = {
   name: "Dan Agarwal",
   title: "Founder & Chief Product Officer",
-  email: "dan@PCLnXAI.com",
-  number: "+91-7325967225",
+  email: "dan@pclnxai.com",
+  number: "(732)596-7225",
   company: "PCLnXAI",
   website: "https://pclnxai.com/payroll-variance-and-risk-analysis/",
   linkedin: "https://www.linkedin.com/in/payrollcloud/",
@@ -47,40 +63,39 @@ export default function VCardPage() {
   }, [isModalOpen]);
 
   const handleSendEmail = async (e: React.FormEvent) => {
-  e.preventDefault();
-  if (isSending) return;
-  setIsSending(true);
-  setStatusMessage("Sending...");
+    e.preventDefault();
+    if (isSending) return;
+    setIsSending(true);
+    setStatusMessage("Sending...");
 
-  try {
-    const response = await fetch("/api/send-vcard", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: recipientEmail }),
-    });
-    const result = await response.json();
-    if (!response.ok)
-      throw new Error(result.error || "Failed to send email.");
-    setStatusMessage("✅ Success! Email sent.");
+    try {
+      const response = await fetch("/api/send-vcard", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: recipientEmail }),
+      });
+      const result = await response.json();
+      if (!response.ok)
+        throw new Error(result.error || "Failed to send email.");
+      setStatusMessage("✅ Success! Email sent.");
 
-    fetch('/api/store-email', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: recipientEmail }),
-    }).catch(err => console.error("Failed to store email to sheet:", err));
+      fetch("/api/store-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: recipientEmail }),
+      }).catch((err) => console.error("Failed to store email to sheet:", err));
 
-    setTimeout(() => closeModal(), 2000);
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      setStatusMessage(`❌ Error: ${error.message}`);
-    } else {
-      setStatusMessage(`❌ An unknown error occurred.`);
+      setTimeout(() => closeModal(), 2000);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setStatusMessage(`❌ Error: ${error.message}`);
+      } else {
+        setStatusMessage(`❌ An unknown error occurred.`);
+      }
+    } finally {
+      setIsSending(false);
     }
-  } finally {
-    setIsSending(false);
-  }
-};
-
+  };
 
   return (
     <main
@@ -107,16 +122,16 @@ export default function VCardPage() {
         <div className="p-6 sm:p-8 space-y-6 sm:space-y-8 bg-white/70 sm:bg-transparent rounded-xl">
           <InfoRow
             icon={<FiMail />}
-            label="Email"
+            label="EMAIL"
             value={contactInfo.email}
             href={`mailto:${contactInfo.email}`}
           />
           <InfoRow
-    icon={<FiPhone />}
-    label="Contact"
-    value={contactInfo.number}
-    href={`tel:${contactInfo.number}`}
-  />
+            icon={<FiPhone />}
+            label="CONTACT"
+            value={contactInfo.number}
+            href={`tel:${contactInfo.number}`}
+          />
           <InfoRow
             icon={<FiBriefcase />}
             label={contactInfo.company}
@@ -124,7 +139,7 @@ export default function VCardPage() {
           />
           <InfoRow
             icon={<FiLink />}
-            label="Website"
+            label="WEBSITE"
             value={contactInfo.website}
             href={contactInfo.website}
           />
@@ -236,7 +251,7 @@ export default function VCardPage() {
                     onChange={(e) => setRecipientEmail(e.target.value)}
                     placeholder="Enter Email Address"
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-400 text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 dark:text-black rounded-md focus:ring-2 focus:ring-sky-400 text-sm"
                   />
                   <button
                     type="submit"
@@ -328,11 +343,13 @@ export default function VCardPage() {
                   <input
                     value="https://conatct-card-sqiy.vercel.app/"
                     readOnly
-                    className="border border-gray-200 rounded px-2 py-1 flex-1 text-sm"
+                    className="border border-gray-200 dark:text-black rounded px-2 py-1 flex-1 text-sm"
                   />
                   <button
                     onClick={() => {
-                      navigator.clipboard.writeText("https://conatct-card-sqiy.vercel.app/");
+                      navigator.clipboard.writeText(
+                        "https://conatct-card-sqiy.vercel.app/"
+                      );
                       setCopyStatus("copied");
                       setTimeout(() => setCopyStatus("idle"), 1800);
                     }}
@@ -366,10 +383,10 @@ function InfoRow({
     <div className="flex items-start gap-4">
       <div className="text-2xl text-sky-400 pt-0.5">{icon}</div>
       <div>
-        <div className="text-xs text-gray-500 font-bold tracking-wide mb-1 uppercase">
+        <div className="text-xs text-gray-900 font-extrabold tracking-wide mb-1">
           {label}
         </div>
-        <div className="text-base font-semibold text-gray-900 break-words">
+        <div className="text-base text-gray-500 break-words">
           {value}
         </div>
       </div>
