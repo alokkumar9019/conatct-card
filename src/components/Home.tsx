@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import {FiMail,FiBriefcase,FiLink,FiShare2,FiDownload,FiX,FiArrowLeft,FiSave,} from "react-icons/fi";
+import {FiMail,FiBriefcase,FiLink,FiShare2,FiDownload,FiX,FiArrowLeft,FiSave,FiPhone} from "react-icons/fi";
 import {FaLinkedin,FaGlobe,FaFacebook,FaXTwitter,FaWhatsapp,} from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { PiCopySimpleFill } from "react-icons/pi";
@@ -9,6 +9,7 @@ const contactInfo = {
   name: "Dan Agarwal",
   title: "Founder & Chief Product Officer",
   email: "dan@PCLnXAI.com",
+  number: "+91-7325967225",
   company: "PCLnXAI",
   website: "https://pclnxai.com/payroll-variance-and-risk-analysis/",
   linkedin: "https://www.linkedin.com/in/payrollcloud/",
@@ -110,6 +111,12 @@ export default function VCardPage() {
             value={contactInfo.email}
             href={`mailto:${contactInfo.email}`}
           />
+          <InfoRow
+    icon={<FiPhone />}
+    label="Contact"
+    value={contactInfo.number}
+    href={`tel:${contactInfo.number}`}
+  />
           <InfoRow
             icon={<FiBriefcase />}
             label={contactInfo.company}
