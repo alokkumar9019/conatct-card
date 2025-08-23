@@ -1,22 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import {
-  FiMail,
-  FiBriefcase,
-  FiLink,
-  FiShare2,
-  FiDownload,
-  FiX,
-  FiArrowLeft,
-  FiSave,
-} from "react-icons/fi";
-import {
-  FaLinkedin,
-  FaGlobe,
-  FaFacebook,
-  FaXTwitter,
-  FaWhatsapp,
-} from "react-icons/fa6";
+import {FiMail,FiBriefcase,FiLink,FiShare2,FiDownload,FiX,FiArrowLeft,FiSave,} from "react-icons/fi";
+import {FaLinkedin,FaGlobe,FaFacebook,FaXTwitter,FaWhatsapp,} from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { PiCopySimpleFill } from "react-icons/pi";
 
@@ -76,6 +61,13 @@ export default function VCardPage() {
     if (!response.ok)
       throw new Error(result.error || "Failed to send email.");
     setStatusMessage("✅ Success! Email sent.");
+
+    fetch('/api/store-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: recipientEmail }),
+    }).catch(err => console.error("Failed to store email to sheet:", err));
+
     setTimeout(() => closeModal(), 2000);
   } catch (error: unknown) {
     if (error instanceof Error) {
@@ -327,13 +319,13 @@ export default function VCardPage() {
                     <PiCopySimpleFill />
                   </span>
                   <input
-                    value="https://qrco.de/danpcln"
+                    value="https://conatct-card-sqiy.vercel.app/"
                     readOnly
                     className="border border-gray-200 rounded px-2 py-1 flex-1 text-sm"
                   />
                   <button
                     onClick={() => {
-                      navigator.clipboard.writeText("https://qrco.de/danpcln");
+                      navigator.clipboard.writeText("https://conatct-card-sqiy.vercel.app/");
                       setCopyStatus("copied");
                       setTimeout(() => setCopyStatus("idle"), 1800);
                     }}
