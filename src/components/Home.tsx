@@ -27,7 +27,7 @@ const contactInfo = {
   email: "dan@pclnxai.com",
   number: "(732)596-7225",
   company: "PCLnXAI",
-  website: "https://pclnxai.com/payroll-variance-and-risk-analysis/",
+  website: "https://pclnxai.com/",
   linkedin: "https://www.linkedin.com/in/payrollcloud/",
   vCardUrl: "/dan-agarwal.vcf",
 };

@@ -6,7 +6,13 @@ import fs from 'fs';
 import path from 'path';
 
 const contactInfo = {
-  name: "Dan Agarwal",
+ name: "Dan Agarwal",
+  title: "Founder & Chief Product Officer",
+  email: "dan@pclnxai.com",
+  number: "(732)596-7225",
+  company: "PCLnXAI",
+  website: "https://pclnxai.com/",
+  linkedin: "https://www.linkedin.com/in/payrollcloud/",
 };
 
 export async function POST(request: NextRequest) {
@@ -37,7 +43,20 @@ export async function POST(request: NextRequest) {
     from: `"${contactInfo.name}" <${process.env.GMAIL_EMAIL}>`,
     to: recipientEmail,
     subject: `Contact Card for ${contactInfo.name}`,
-    html: `<p>Hi there,</p><p>Here is the contact card for ${contactInfo.name}, as you requested.</p>`,
+    html:  `
+    <p>Hi there,</p>
+    <p>Thanks so much for connecting. It was great to meet you.</p>
+    <p>To make it easy to stay in touch, here are my contact details:</p>
+    <p>
+      <strong>Email:</strong> <a href="mailto:${contactInfo.email}">${contactInfo.email}</a><br>
+      <strong>LinkedIn:</strong> <a href="${contactInfo.linkedin}">${contactInfo.linkedin}</a><br>
+      <strong>Phone:</strong> ${contactInfo.number}
+    </p>
+    <p>I'm keen to find a time to discuss how we can work together to solve your payroll problem. Please let me know what time works best for you next week.</p>
+    <p>I look forward to hearing from you.</p>
+    <p>Best regards,</p>
+    <p> <strong>${contactInfo.name}</strong></p>
+  `,
     attachments: [{
       filename: 'dan-agarwal.vcf',
       content: vcfContent,
