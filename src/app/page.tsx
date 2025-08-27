@@ -16,7 +16,7 @@ export default function VCardPage() {
     return <LoadingPage show={true} />;
   }
   return (
-    <main className="bg-slate-100 min-h-screen flex items-center justify-center p-6">
+    <main className="bg-slate-100">
       <Home/>
     </main>
   );
