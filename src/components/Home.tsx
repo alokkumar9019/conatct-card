@@ -99,13 +99,12 @@ export default function VCardPage() {
 
   return (
     <main
-      className="min-h-screen flex items-center justify-center p-2 sm:p-4 
-      bg-gradient-to-tr from-sky-50 via-teal-50 to-emerald-50"
+      className="min-h-screen flex items-center justify-center p-0 sm:p-4 bg-white sm:bg-gradient-to-tr sm:from-sky-50 sm:via-teal-50 sm:to-emerald-5"
     >
       <div
-        className={`w-full sm:max-w-lg md:max-w-xl mx-auto ${
-          isModalOpen ? "filter blur-sm" : ""
-        } sm:rounded-2xl sm:shadow-xl sm:bg-white sm:border sm:border-gray-100 sm:overflow-hidden`}
+        className={`w-full h-full sm:h-auto sm:max-w-lg md:max-w-xl mx-auto
+      ${isModalOpen ? "filter blur-sm" : ""}
+      bg-white border border-gray-100 sm:rounded-2xl sm:shadow-xl sm:overflow-hidden`}
       >
         {/* Header */}
         <div className="p-2 sm:p-4 text-center bg-gradient-to-r from-sky-400 to-teal-400 text-white">
@@ -212,7 +211,7 @@ export default function VCardPage() {
                     onChange={(e) => setRecipientEmail(e.target.value)}
                     placeholder="Enter Email Address"
                     required
-                    className="w-full px-3 py-2 border border-gray-300 dark:text-black rounded-md focus:ring-2 focus:ring-sky-400 text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-400 text-sm"
                   />
                   <button
                     type="submit"
@@ -304,7 +303,7 @@ export default function VCardPage() {
                   <input
                     value="https://conatct-card-sqiy.vercel.app/"
                     readOnly
-                    className="border border-gray-200 dark:text-black rounded px-2 py-1 flex-1 text-sm"
+                    className="border border-gray-200 rounded px-2 py-1 flex-1 text-sm"
                   />
                   <button
                     onClick={() => {
@@ -393,9 +392,9 @@ function ActionButton({
     primary:
       "bg-sky-400 text-black hover:bg-sky-700 shadow-sm focus:ring-sky-500 cursor-pointer",
     secondary:
-      "bg-white text-black-600 border border-sky-300 hover:bg-sky-50 focus:ring-sky-500",
+      "bg-white text-black border border-sky-300 hover:bg-sky-50 focus:ring-sky-500",
     tertiary:
-      "bg-transparent text-black-500 hover:bg-slate-100 focus:ring-slate-400 cursor-pointer",
+      "bg-white text-black hover:bg-slate-100 focus:ring-slate-400 cursor-pointer",
   };
 
   const className = `${baseStyles} ${styles[variant]}`;
