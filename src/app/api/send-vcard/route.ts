@@ -1,12 +1,10 @@
-// /app/api/send-vcard/route.ts
-
-import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
-import fs from 'fs';
-import path from 'path';
+import { NextRequest, NextResponse } from "next/server";
+import nodemailer from "nodemailer";
+import fs from "fs";
+import path from "path";
 
 const contactInfo = {
- name: "Dan Agarwal",
+  name: "Dan Agarwal",
   title: "Founder & Chief Product Officer",
   email: "dan@pclnxai.com",
   number: "(732)596-7225",
@@ -19,22 +17,23 @@ export async function POST(request: NextRequest) {
   const { email: recipientEmail } = await request.json();
 
   if (!recipientEmail) {
-    return NextResponse.json({ error: 'Email is required.' }, { status: 400 });
+    return NextResponse.json({ error: "Email is required." }, { status: 400 });
   }
 
-  // --- Setup Nodemailer Transporter (same as before) ---
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
       user: process.env.GMAIL_EMAIL,
       pass: process.env.GMAIL_APP_PASSWORD,
     },
   });
 
-  // --- Read vCard File (same as before) ---
-  const vcfPath = path.join(process.cwd(), 'public', 'dan-agarwal.vcf');
+  const vcfPath = path.join(process.cwd(), "public", "dan-agarwal.vcf");
   if (!fs.existsSync(vcfPath)) {
-    return NextResponse.json({ error: 'Contact file is missing.' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Contact file is missing." },
+      { status: 500 }
+    );
   }
   const vcfContent = fs.readFileSync(vcfPath);
 
@@ -43,7 +42,7 @@ export async function POST(request: NextRequest) {
     from: `"${contactInfo.name}" <${process.env.GMAIL_EMAIL}>`,
     to: recipientEmail,
     subject: `Contact Card for ${contactInfo.name}`,
-    html:  `
+    html: `
     <p>Hi there,</p>
     <p>Thanks so much for connecting. It was great to meet you.</p>
     <p>To make it easy to stay in touch, here are my contact details:</p>
@@ -57,11 +56,13 @@ export async function POST(request: NextRequest) {
     <p>Best regards,</p>
     <p> <strong>${contactInfo.name}</strong></p>
   `,
-    attachments: [{
-      filename: 'dan-agarwal.vcf',
-      content: vcfContent,
-      contentType: 'text/vcard',
-    }],
+    attachments: [
+      {
+        filename: "dan-agarwal.vcf",
+        content: vcfContent,
+        contentType: "text/vcard",
+      },
+    ],
   };
 
   // --- EMAIL #2: Notification to You ---
@@ -87,10 +88,12 @@ export async function POST(request: NextRequest) {
     //   .then(() => console.log('Successfully sent notification to owner.'))
     //   .catch(err => console.error('Failed to send notification email:', err));
 
-    return NextResponse.json({ message: 'Email sent successfully!' });
-      
+    return NextResponse.json({ message: "Email sent successfully!" });
   } catch (error) {
-    console.error('Nodemailer Error:', error);
-    return NextResponse.json({ error: 'Failed to send email.' }, { status: 500 });
+    console.error("Nodemailer Error:", error);
+    return NextResponse.json(
+      { error: "Failed to send email." },
+      { status: 500 }
+    );
   }
 }

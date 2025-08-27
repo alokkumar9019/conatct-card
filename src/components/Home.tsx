@@ -5,10 +5,8 @@ import {
   FiBriefcase,
   FiLink,
   FiShare2,
-  FiDownload,
   FiX,
-  FiArrowLeft,
-  FiSave,
+  FiDownload,
   FiPhone,
 } from "react-icons/fi";
 import {
@@ -34,27 +32,29 @@ const contactInfo = {
 
 export default function VCardPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalView, setModalView] = useState<"initial" | "emailForm" | "share">(
-    "initial"
+  const [modalView, setModalView] = useState<"emailForm" | "share">(
+    "emailForm"
   );
   const [recipientEmail, setRecipientEmail] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied">("idle");
 
-  const openModal = () => {
+  // --- MODIFIED FUNCTIONS ---
+  // Opens the modal directly to the email form
+  const openEmailModal = () => {
     setIsModalOpen(true);
-    setModalView("initial");
+    setModalView("emailForm");
     setStatusMessage("");
   };
-  const handleShare = () => {
+  // Opens the modal directly to the share options
+  const openShareModal = () => {
     setIsModalOpen(true);
     setModalView("share");
     setCopyStatus("idle");
   };
   const closeModal = () => setIsModalOpen(false);
 
-  // disable scroll when modal open
   useEffect(() => {
     document.body.style.overflow = isModalOpen ? "hidden" : "";
     return () => {
@@ -99,17 +99,16 @@ export default function VCardPage() {
 
   return (
     <main
-      className="min-h-screen flex items-center justify-center p-4 sm:p-6 
+      className="min-h-screen flex items-center justify-center p-2 sm:p-4 
       bg-gradient-to-tr from-sky-50 via-teal-50 to-emerald-50"
     >
-      {/* On mobile content flows normally; on larger screens wrap inside card */}
       <div
         className={`w-full sm:max-w-lg md:max-w-xl mx-auto ${
           isModalOpen ? "filter blur-sm" : ""
         } sm:rounded-2xl sm:shadow-xl sm:bg-white sm:border sm:border-gray-100 sm:overflow-hidden`}
       >
         {/* Header */}
-        <div className="p-6 sm:p-8 text-center bg-gradient-to-r from-sky-400 to-teal-400 text-white">
+        <div className="p-2 sm:p-4 text-center bg-gradient-to-r from-sky-400 to-teal-400 text-white">
           <h1 className="text-2xl sm:text-3xl font-extrabold">
             {contactInfo.name}
           </h1>
@@ -119,7 +118,7 @@ export default function VCardPage() {
         </div>
 
         {/* Info Section */}
-        <div className="p-6 sm:p-8 space-y-6 sm:space-y-8 bg-white/70 sm:bg-transparent rounded-xl">
+        <div className="p-2 sm:p-4 space-y-4 sm:space-y-6 bg-white/70 sm:bg-transparent rounded-xl">
           <InfoRow
             icon={<FiMail />}
             label="EMAIL"
@@ -146,7 +145,7 @@ export default function VCardPage() {
         </div>
 
         {/* Socials */}
-        <div className="px-6 sm:px-8 py-5 bg-white/60 sm:bg-gray-50 border-t">
+        <div className="px-6 sm:px-8 py-3 bg-white/60 sm:bg-gray-50 border-t">
           <h3 className="text-xs sm:text-sm font-semibold text-gray-600 mb-4">
             Social Media
           </h3>
@@ -156,20 +155,26 @@ export default function VCardPage() {
           </div>
         </div>
 
-        {/* Actions */}
-        <div className="bg-gradient-to-r from-sky-50 to-teal-50 p-4 sm:p-6 border-t">
-          <div className="space-y-3 sm:space-y-4">
-            <ActionButton onClick={openModal} isPrimary>
-              <span className="mr-2">
-                <FiDownload />
-              </span>{" "}
-              DOWNLOAD VCARD
+        {/* --- MODIFIED ACTIONS SECTION --- */}
+        <div className="bg-slate-50/70 p-4 sm:p-6 border-t">
+          <div className="space-y-3">
+            <ActionButton onClick={openEmailModal} variant="primary">
+              <FiMail className="mr-2" />
+              Send by Email
             </ActionButton>
-            <ActionButton onClick={handleShare}>
-              <span className="mr-2">
-                <FiShare2 />
-              </span>{" "}
-              SHARE THIS PAGE
+
+            <ActionButton
+              href={contactInfo.vCardUrl}
+              download
+              variant="secondary"
+            >
+              <FiDownload className="mr-2" />
+              Download VCard
+            </ActionButton>
+
+            <ActionButton onClick={openShareModal} variant="tertiary">
+              <FiShare2 className="mr-2" />
+              Share this Page
             </ActionButton>
           </div>
         </div>
@@ -185,56 +190,12 @@ export default function VCardPage() {
             className="bg-white rounded-lg shadow-2xl w-full max-w-sm relative"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Save Contact Modal */}
-            {modalView === "initial" && (
-              <div className="p-6 text-center">
-                <button
-                  onClick={closeModal}
-                  className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
-                >
-                  <FiX size={20} />
-                </button>
-                <h2 className="text-lg font-semibold text-sky-600">
-                  Save Contact Data
-                </h2>
-                <p className="text-gray-500 text-sm mt-1 mb-5">
-                  How would you like to save this contact?
-                </p>
-                <div className="space-y-3">
-                  <ModalButton onClick={() => setModalView("emailForm")}>
-                    <span className="text-xl text-sky-600 mr-3">
-                      <FiMail />
-                    </span>
-                    Send by Email
-                  </ModalButton>
-                  <a
-                    href={contactInfo.vCardUrl}
-                    download
-                    onClick={closeModal}
-                    className="w-full flex items-center p-3 text-left border rounded-lg hover:bg-slate-50"
-                  >
-                    <span className="text-xl text-emerald-600 mr-3">
-                      <FiSave />
-                    </span>
-                    <span className="font-medium text-gray-800 text-sm">
-                      Save to My Phone
-                    </span>
-                  </a>
-                </div>
-              </div>
-            )}
-
             {/* Email Form */}
             {modalView === "emailForm" && (
               <div className="p-6">
                 <div className="flex justify-between items-center mb-4">
-                  <button
-                    onClick={() => setModalView("initial")}
-                    className="text-gray-500 hover:text-gray-700"
-                  >
-                    <FiArrowLeft size={20} />
-                  </button>
-                  <h3 className="text-md font-semibold text-sky-600">
+                  {/* Removed back button as it's a direct entry now */}
+                  <h3 className="text-md font-semibold text-sky-600 w-full text-center">
                     Send by Email
                   </h3>
                   <button
@@ -367,7 +328,7 @@ export default function VCardPage() {
   );
 }
 
-// --- Reusable Components ---
+// --- Reusable Components (No changes needed) ---
 function InfoRow({
   icon,
   label,
@@ -386,9 +347,7 @@ function InfoRow({
         <div className="text-xs text-gray-900 font-extrabold tracking-wide mb-1">
           {label}
         </div>
-        <div className="text-base text-gray-500 break-words">
-          {value}
-        </div>
+        <div className="text-base text-gray-500 break-words">{value}</div>
       </div>
     </div>
   );
@@ -417,22 +376,40 @@ function SocialIcon({ icon, href }: { icon: React.ReactNode; href: string }) {
 function ActionButton({
   onClick,
   children,
-  isPrimary = false,
+  variant = "secondary",
+  href,
+  download,
 }: {
-  onClick: () => void;
+  onClick?: () => void;
   children: React.ReactNode;
-  isPrimary?: boolean;
+  variant?: "primary" | "secondary" | "tertiary";
+  href?: string;
+  download?: boolean;
 }) {
-  const base =
-    "w-full flex items-center justify-center py-3 px-4 text-sm font-bold rounded-lg transition-all duration-200 uppercase tracking-wide shadow";
-  const primary = "bg-sky-500 text-white hover:bg-sky-600";
-  const secondary =
-    "bg-white text-gray-600 border border-gray-300 hover:bg-gray-100";
+  const baseStyles =
+    "w-full flex items-center justify-center py-3 px-4 text-sm font-bold rounded-lg transition-all duration-200 uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-offset-2";
+
+  const styles = {
+    primary:
+      "bg-sky-400 text-black hover:bg-sky-700 shadow-sm focus:ring-sky-500 cursor-pointer",
+    secondary:
+      "bg-white text-black-600 border border-sky-300 hover:bg-sky-50 focus:ring-sky-500",
+    tertiary:
+      "bg-transparent text-black-500 hover:bg-slate-100 focus:ring-slate-400 cursor-pointer",
+  };
+
+  const className = `${baseStyles} ${styles[variant]}`;
+
+  if (href) {
+    return (
+      <a href={href} download={download} className={className}>
+        {children}
+      </a>
+    );
+  }
+
   return (
-    <button
-      onClick={onClick}
-      className={`${base} ${isPrimary ? primary : secondary}`}
-    >
+    <button onClick={onClick} className={className}>
       {children}
     </button>
   );
