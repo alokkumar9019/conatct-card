@@ -2,18 +2,17 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import { FiMail, FiBriefcase, FiLink, FiShare2, FiX, FiDownload, FiPhone } from "react-icons/fi"
-import { FaLinkedin, FaGlobe, FaFacebook, FaXTwitter, FaWhatsapp } from "react-icons/fa6"
+import { FaGlobe, FaFacebook, FaXTwitter, FaWhatsapp } from "react-icons/fa6"
 import { MdEmail } from "react-icons/md"
 import { PiCopySimpleFill } from "react-icons/pi"
 
 const contactInfo = {
   name: "Dan Agarwal",
-  title: "Founder & Chief Product Officer",
-  email: "dan@pclnxai.com",
-  number: "(732)596-7225",
+  title: "VP of Sales",
+  email: "nikolai@pclnxai.com",
+  number: "(925)784-9248",
   company: "PCLnXAI",
   website: "https://pclnxai.com/",
-  linkedin: "https://www.linkedin.com/in/payrollcloud/",
   vCardUrl: "/dan-agarwal.vcf",
 }
 
@@ -108,7 +107,6 @@ export default function VCardPage() {
         <div className="px-8 sm:px-10 py-6 bg-muted border-t border-border">
           <h3 className="text-sm font-bold text-muted-foreground mb-6 tracking-wide uppercase">Social Media</h3>
           <div className="flex flex-wrap gap-4">
-            <SocialIcon href={contactInfo.linkedin} icon={<FaLinkedin />} />
             <SocialIcon href={contactInfo.website} icon={<FaGlobe />} />
           </div>
         </div>

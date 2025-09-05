@@ -5,12 +5,12 @@ import path from "path";
 
 const contactInfo = {
   name: "Dan Agarwal",
-  title: "Founder & Chief Product Officer",
-  email: "dan@pclnxai.com",
-  number: "(732)596-7225",
+  title: "VP of Sales",
+  email: "nikolai@pclnxai.com",
+  number: "(925)784-9248",
   company: "PCLnXAI",
   website: "https://pclnxai.com/",
-  linkedin: "https://www.linkedin.com/in/payrollcloud/",
+  vCardUrl: "/dan-agarwal.vcf",
 };
 
 export async function POST(request: NextRequest) {
@@ -48,7 +48,6 @@ export async function POST(request: NextRequest) {
     <p>To make it easy to stay in touch, here are my contact details:</p>
     <p>
       <strong>Email:</strong> <a href="mailto:${contactInfo.email}">${contactInfo.email}</a><br>
-      <strong>LinkedIn:</strong> <a href="${contactInfo.linkedin}">${contactInfo.linkedin}</a><br>
       <strong>Phone:</strong> ${contactInfo.number}
     </p>
     <p>I'm keen to find a time to discuss how we can work together to solve your payroll problem. Please let me know what time works best for you next week.</p>
